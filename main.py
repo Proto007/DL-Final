@@ -24,7 +24,7 @@ def main(config):
 
     # get data loder
     train_loader = data.DataLoader(
-        dataset = MtatDataset(split='TRAIN', input_length=config.input_length),
+        dataset = MtatDataset(split='TRAIN', input_length=config.input_length, aug=config.aug,aug_prob=0.5),
 	    batch_size = config.batch_size,
 	    shuffle = True,
 	    drop_last = False,
@@ -40,14 +40,16 @@ if __name__ == '__main__':
     parser.add_argument('--num_workers', type=int, default=0)
     parser.add_argument('--model_type', type=str, default='fcn',
 						choices=['fcn', 'musicnn', 'crnn', 'sample', 'se', 'short', 'short_res', 'hcnn', 'mymodel'])
-    parser.add_argument('--n_epochs', type=int, default=200)
+    parser.add_argument('--n_epochs', type=int, default=100)
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--lr', type=float, default=1e-4)
     parser.add_argument('--use_tensorboard', type=int, default=1)
     parser.add_argument('--model_save_path', type=str, default='./models')
     parser.add_argument('--model_load_path', type=str, default='.')
     parser.add_argument('--data_path', type=str, default='./data')
-    parser.add_argument('--log_step', type=int, default=20)
+    parser.add_argument('--log_step', type=int, default=100)
+    parser.add_argument('--aug', type=bool, default=False, choices=[True,False])
+    parser.add_argument('--aug_prob', type=float, default=0.5)
     config = parser.parse_args()
 
     print(config)
