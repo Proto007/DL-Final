@@ -6,7 +6,6 @@ import datetime
 import tqdm
 import torch
 import torch.nn as nn
-from sklearn.preprocessing import LabelBinarizer
 from torch.utils.tensorboard import SummaryWriter
 from torch.autograd import Variable
 
@@ -27,6 +26,9 @@ class Solver(object):
         # model path and step size
         self.model_save_path = config.model_save_path
         self.model_load_path = config.model_load_path
+        self.model_name = config.model_type
+        if config.aug:
+            self.model_name += '_aug'
         self.log_step = config.log_step
         self.batch_size = config.batch_size
         self.model_type = config.model_type
@@ -138,7 +140,7 @@ class Solver(object):
     def opt_schedule(self, current_optimizer, drop_counter):
         # adam to sgd
         if current_optimizer == 'adam' and drop_counter == 80:
-            self.load(os.path.join(self.model_save_path, f'{self.model_type}.pth'))
+            self.load(os.path.join(self.model_save_path, f'{self.model_name}.pth'))
             self.optimizer = torch.optim.SGD(self.model.parameters(), 0.001,
                                             momentum=0.9, weight_decay=0.0001,
                                             nesterov=True)
@@ -147,7 +149,7 @@ class Solver(object):
             print('sgd 1e-3')
         # first drop
         if current_optimizer == 'sgd_1' and drop_counter == 20:
-            self.load(os.path.join(self.model_save_path, f'{self.model_type}.pth'))
+            self.load(os.path.join(self.model_save_path, f'{self.model_name}.pth'))
             for pg in self.optimizer.param_groups:
                 pg['lr'] = 0.0001
             current_optimizer = 'sgd_2'
@@ -155,7 +157,7 @@ class Solver(object):
             print('sgd 1e-4')
         # second drop
         if current_optimizer == 'sgd_2' and drop_counter == 20:
-            self.load(os.path.join(self.model_save_path, f'{self.model_type}.pth'))
+            self.load(os.path.join(self.model_save_path, f'{self.model_name}.pth'))
             for pg in self.optimizer.param_groups:
                 pg['lr'] = 0.00001
             current_optimizer = 'sgd_3'
@@ -199,7 +201,7 @@ class Solver(object):
         if score > best_metric:
             print('best model!')
             best_metric = score
-            torch.save(self.model.state_dict(),os.path.join(self.model_save_path, f'{self.model_type}.pth'))
+            torch.save(self.model.state_dict(),os.path.join(self.model_save_path, f'{self.model_name}.pth'))
         return best_metric
 
 
