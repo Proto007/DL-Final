@@ -534,7 +534,52 @@ class MyModel(nn.Module):
         self.to_db = torchaudio.transforms.AmplitudeToDB()
         self.spec_bn = nn.BatchNorm2d(1)
 
-        # TODO: implement the model
+        self.cnn = nn.Sequential(
+            nn.Conv2d(1, 64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2),
+            nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2)
+        )
+
+        self.patch_size = 16
+        self.embed_dim = 128
+        self.num_heads = 8
+        self.num_layers = 6
+
+        self.patch_embedding = nn.Conv2d(
+            in_channels=128,
+            out_channels=self.embed_dim,
+            kernel_size=self.patch_size,
+            stride=self.patch_size
+        )
+        self.position_encoding = nn.Parameter(
+            torch.randn(1, (n_mels // self.patch_size) * (n_mels // self.patch_size), self.embed_dim)
+        )
+        transformer_layer = nn.TransformerEncoderLayer(
+            d_model=self.embed_dim,
+            nhead=self.num_heads
+        )
+        self.transformer = nn.TransformerEncoder(
+            transformer_layer,
+            num_layers=self.num_layers
+        )
+
+        # Classification Head
+        # self.classifier = nn.Sequential(
+        #     nn.LayerNorm(self.embed_dim),
+        #     nn.Linear(self.embed_dim, n_class)
+        # )
+        # self.classifier = nn.Sequential(
+        #   nn.Linear(d_model, n_class),
+        #   nn.Sigmoid()
+        # )
+        self.classifier = nn.Sequential(
+          nn.Linear(n_channels, n_class),
+          nn.Sigmoid()
+        )
+        print("Initialized MyModel")
 
     def forward(self, x):
         # Spectrogram
@@ -542,8 +587,25 @@ class MyModel(nn.Module):
         x = self.to_db(x)
         x = x.unsqueeze(1)
         x = self.spec_bn(x)
+        print("Forwrded spectrogram")
 
-        # CNN
-        # TODO: Implement the model
+        x = self.cnn(x)
+        print("Forwarded cnn")
+
+        x = self.patch_embedding(x)
+        x = x.flatten(2).transpose(1, 2)
+        print("Forwarded patch embedding")
+
+        x += self.position_encoding[:, :x.size(1), :]
+        print("Forwarded positional encoding")
+
+        x = self.transformer(x)
+        print("Forwarded transformer")
+
+        x = x.mean(dim=1)
+        x = self.classifier(x)
+        print("New Forwarded classifier")
+
         return x
+
 
