@@ -64,8 +64,8 @@ class Solver(object):
             return Model.ShortChunkCNN_Res()
         elif self.model_type == 'hcnn':
             return Model.HarmonicCNN()
-        elif self.model_type == "mymodel":
-            return Model.MyModel()
+        elif self.model_type == "vit":
+            return Model.ViT()
 
     def build_model(self):
         # model
@@ -220,7 +220,9 @@ class Solver(object):
             ground_truth = self.binary[int(ix)]
             # forward
             x = self.to_var(x)
-            y = torch.tensor([ground_truth.astype('float32') for i in range(self.batch_size)]).cuda()
+            y = torch.tensor(np.repeat(ground_truth.astype('float32')[np.newaxis, :], self.batch_size, axis=0))
+            if self.is_cuda:
+                y = y.cuda()
             out = self.model(x)
             loss = reconst_loss(out, y)
             losses.append(float(loss.data))
