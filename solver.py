@@ -28,7 +28,7 @@ class Solver(object):
         self.model_load_path = config.model_load_path
         self.model_name = config.model_type
         if config.aug:
-            self.model_name += '_aug'
+            self.model_name += f'_aug_{config.aug_prob}'
         self.log_step = config.log_step
         self.batch_size = config.batch_size
         self.model_type = config.model_type

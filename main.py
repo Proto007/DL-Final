@@ -21,10 +21,9 @@ def main(config):
         config.input_length = 80000
     elif config.model_type == 'attention':
         config.input_length = 15 * 16000
-
     # get data loder
     train_loader = data.DataLoader(
-        dataset = MtatDataset(split='TRAIN', input_length=config.input_length, aug=config.aug,aug_prob=0.5),
+        dataset = MtatDataset(split='TRAIN', input_length=config.input_length, aug=config.aug,aug_prob=config.aug_prob),
 	    batch_size = config.batch_size,
 	    shuffle = True,
 	    drop_last = False,
@@ -48,7 +47,7 @@ if __name__ == '__main__':
     parser.add_argument('--model_load_path', type=str, default='.')
     parser.add_argument('--data_path', type=str, default='./data')
     parser.add_argument('--log_step', type=int, default=100)
-    parser.add_argument('--aug', type=bool, default=False, choices=[True,False])
+    parser.add_argument('--aug', type=bool, action=argparse.BooleanOptionalAction)
     parser.add_argument('--aug_prob', type=float, default=0.5)
     config = parser.parse_args()
 
