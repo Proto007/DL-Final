@@ -514,16 +514,15 @@ class HarmonicCNN(nn.Module):
 
         return x
 
-class MyModel(nn.Module):
+class ViT(nn.Module):
     def __init__(self,
-                n_channels=128,
                 sample_rate=16000,
                 n_fft=512,
                 f_min=0.0,
                 f_max=8000.0,
                 n_mels=128,
                 n_class=50):
-        super(MyModel, self).__init__()
+        super(ViT, self).__init__()
 
         # Spectrogram
         self.spec = torchaudio.transforms.MelSpectrogram(sample_rate=sample_rate,
@@ -540,16 +539,19 @@ class MyModel(nn.Module):
             nn.MaxPool2d(kernel_size=2),
             nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2),
+            nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)
         )
 
         self.patch_size = 16
-        self.embed_dim = 128
+        self.embed_dim = 256
         self.num_heads = 8
         self.num_layers = 6
 
         self.patch_embedding = nn.Conv2d(
-            in_channels=128,
+            in_channels=256,
             out_channels=self.embed_dim,
             kernel_size=self.patch_size,
             stride=self.patch_size
@@ -565,21 +567,10 @@ class MyModel(nn.Module):
             transformer_layer,
             num_layers=self.num_layers
         )
-
-        # Classification Head
-        # self.classifier = nn.Sequential(
-        #     nn.LayerNorm(self.embed_dim),
-        #     nn.Linear(self.embed_dim, n_class)
-        # )
-        # self.classifier = nn.Sequential(
-        #   nn.Linear(d_model, n_class),
-        #   nn.Sigmoid()
-        # )
         self.classifier = nn.Sequential(
-          nn.Linear(n_channels, n_class),
+          nn.Linear(self.embed_dim, n_class),
           nn.Sigmoid()
         )
-        print("Initialized MyModel")
 
     def forward(self, x):
         # Spectrogram
@@ -587,25 +578,18 @@ class MyModel(nn.Module):
         x = self.to_db(x)
         x = x.unsqueeze(1)
         x = self.spec_bn(x)
-        print("Forwrded spectrogram")
 
         x = self.cnn(x)
-        print("Forwarded cnn")
 
         x = self.patch_embedding(x)
         x = x.flatten(2).transpose(1, 2)
-        print("Forwarded patch embedding")
 
         x += self.position_encoding[:, :x.size(1), :]
-        print("Forwarded positional encoding")
 
         x = self.transformer(x)
-        print("Forwarded transformer")
 
         x = x.mean(dim=1)
         x = self.classifier(x)
-        print("New Forwarded classifier")
 
         return x
-
 

@@ -46,7 +46,7 @@ class MtatDataset(data.Dataset):
                 npy = librosa.effects.time_stretch(npy,rate=self.timeshift_rate)
             if apply_pitchshift:
                 self.pitchshift_rate = np.random.randint(-5,5) if self.pitchshift_rate==None else self.pitchshift_rate
-                npy = librosa.effects.pitch_shift(npy,sr=16000,n_steps=np.random.randint(-5,5))
+                npy = librosa.effects.pitch_shift(npy,sr=16000,n_steps=self.pitchshift_rate)
         # ensure the length of npy is consistent with input_length
         if len(npy) > self.input_length:
             npy = npy[:self.input_length]
@@ -55,25 +55,23 @@ class MtatDataset(data.Dataset):
             npy = np.concatenate((npy, padding))
         return npy.astype('float32'), tag_binary.astype('float32')
 
-    def get_augmented(self, index):
+    def get_augmented(self, index, types=(True,True,True), timeshift_rate=None, pitchshift_rate=None):
+        """ Function to test the augmentations. Intended to be called after calling __getitem__ atleast once """
         ix, fn = self.fl[index].split('\t')
         npy_path = os.path.join('data', 'npy', fn.split('/')[1][:-3]) + 'npy'
         npy = np.load(npy_path, mmap_mode='r')
         npy = np.array(npy[self.random_idx:self.random_idx+self.input_length])
         tag_binary = self.binary[int(ix)]
-        # add data augmentation to datapoints in training
-        apply_noise = self.aug_types[0] and np.random.rand() < self.aug_prob
-        apply_stretch = self.aug_types[1] and np.random.rand() < self.aug_prob
-        apply_pitchshift = self.aug_types[2] and np.random.rand() < self.aug_prob
-        if apply_noise:
+        # add data augmentation to datapoint
+        if types[0]:
             noise = np.random.randn(len(npy))
             npy = npy + self.noise_factor * noise
-        if apply_stretch:
-            self.timeshift_rate = np.random.uniform(0.8,1.2) if self.timeshift_rate==None else self.timeshift_rate
-            npy = librosa.effects.time_stretch(npy,rate=self.timeshift_rate)
-        if apply_pitchshift:
-            self.pitchshift_rate = np.random.randint(-5,5) if self.pitchshift_rate==None else self.pitchshift_rate
-            npy = librosa.effects.pitch_shift(npy,sr=16000,n_steps=np.random.randint(-5,5))
+        if types[1]:
+            timeshift_rate = np.random.uniform(0.8,1.2) if timeshift_rate==None else timeshift_rate
+            npy = librosa.effects.time_stretch(npy,rate=timeshift_rate)
+        if types[2]:
+            pitchshift_rate = np.random.randint(-5,5) if pitchshift_rate==None else pitchshift_rate
+            npy = librosa.effects.pitch_shift(npy,sr=16000,n_steps=pitchshift_rate)
         # ensure the length of npy is consistent with input_length
         if len(npy) > self.input_length:
             npy = npy[:self.input_length]

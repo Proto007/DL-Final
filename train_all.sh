@@ -50,6 +50,12 @@ for arg in "$@"; do
     python main.py --model_type hcnn --num_workers 8 --n_epochs 10 --aug --aug_prob 0.50
     python main.py --model_type hcnn --num_workers 8 --n_epochs 10 --aug --aug_prob 0.75
     python main.py --model_type hcnn --num_workers 8 --n_epochs 10 --aug --aug_prob 1.00
+  elif [[ "$arg" == "vit" ]]; then
+    python main.py --model_type vit --num_workers 8 --n_epochs 10 --no-aug
+    python main.py --model_type vit --num_workers 8 --n_epochs 10 --aug --aug_prob 0.25
+    python main.py --model_type vit --num_workers 8 --n_epochs 10 --aug --aug_prob 0.50
+    python main.py --model_type vit --num_workers 8 --n_epochs 10 --aug --aug_prob 0.75
+    python main.py --model_type vit --num_workers 8 --n_epochs 10 --aug --aug_prob 1.0
   fi
 done
 exit 0
