@@ -11,6 +11,7 @@ dependencies:
   - absl-py=2.1.0=py312h06a4308_0
   - asttokens=2.0.5=pyhd3eb1b0_0
   - blas=1.0=mkl
+  - bottleneck=1.4.2=py312ha883a20_0
   - brotli=1.0.9=h5eee18b_8
   - brotli-bin=1.0.9=h5eee18b_8
   - brotli-python=1.0.9=py312h6a678d5_8
@@ -128,10 +129,12 @@ dependencies:
   - nest-asyncio=1.6.0=py312h06a4308_0
   - nettle=3.7.3=hbbd107a_1
   - networkx=3.2.1=py312h06a4308_0
+  - numexpr=2.10.1=py312h3c60e43_0
   - openh264=2.1.1=h4ff587b_0
   - openjpeg=2.5.2=he7f1fd0_0
   - openldap=2.6.4=h42fbc30_0
   - openssl=3.0.15=h5eee18b_0
+  - pandas=2.2.3=py312h6a678d5_0
   - parso=0.8.3=pyhd3eb1b0_0
   - pcre2=10.42=hebb0a14_1
   - pexpect=4.8.0=pyhd3eb1b0_3
@@ -151,9 +154,11 @@ dependencies:
   - pysocks=1.7.1=py312h06a4308_0
   - python=3.12.7=h5148396_0
   - python-dateutil=2.9.0post0=py312h06a4308_2
+  - python-tzdata=2023.3=pyhd3eb1b0_0
   - pytorch=2.5.1=py3.12_cuda12.4_cudnn9.1.0_0
   - pytorch-cuda=12.4=hc786d27_7
   - pytorch-mutex=1.0=cuda
+  - pytz=2024.1=py312h06a4308_0
   - pyyaml=6.0.2=py312h5eee18b_0
   - pyzmq=25.1.2=py312h6a678d5_0
   - qt-main=5.15.2=hb6262e9_11
