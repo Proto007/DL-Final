@@ -1,0 +1,10 @@
+Model,Learnable_Parameters
+fcn,447732
+musicnn,784300
+crnn,394100
+sample,1869874
+se,6951858
+short,3687348
+short_res,12104244
+hcnn,3631551
+vit,25066804

@@ -1,0 +1,86 @@
+Module,# of Learnable Parameters,Dimension
+position_encoding,16384,"torch.Size([1, 64, 256])"
+spec_bn.weight,1,torch.Size([1])
+spec_bn.bias,1,torch.Size([1])
+cnn.0.weight,576,"torch.Size([64, 1, 3, 3])"
+cnn.0.bias,64,torch.Size([64])
+cnn.3.weight,73728,"torch.Size([128, 64, 3, 3])"
+cnn.3.bias,128,torch.Size([128])
+cnn.6.weight,294912,"torch.Size([256, 128, 3, 3])"
+cnn.6.bias,256,torch.Size([256])
+patch_embedding.weight,16777216,"torch.Size([256, 256, 16, 16])"
+patch_embedding.bias,256,torch.Size([256])
+transformer.layers.0.self_attn.in_proj_weight,196608,"torch.Size([768, 256])"
+transformer.layers.0.self_attn.in_proj_bias,768,torch.Size([768])
+transformer.layers.0.self_attn.out_proj.weight,65536,"torch.Size([256, 256])"
+transformer.layers.0.self_attn.out_proj.bias,256,torch.Size([256])
+transformer.layers.0.linear1.weight,524288,"torch.Size([2048, 256])"
+transformer.layers.0.linear1.bias,2048,torch.Size([2048])
+transformer.layers.0.linear2.weight,524288,"torch.Size([256, 2048])"
+transformer.layers.0.linear2.bias,256,torch.Size([256])
+transformer.layers.0.norm1.weight,256,torch.Size([256])
+transformer.layers.0.norm1.bias,256,torch.Size([256])
+transformer.layers.0.norm2.weight,256,torch.Size([256])
+transformer.layers.0.norm2.bias,256,torch.Size([256])
+transformer.layers.1.self_attn.in_proj_weight,196608,"torch.Size([768, 256])"
+transformer.layers.1.self_attn.in_proj_bias,768,torch.Size([768])
+transformer.layers.1.self_attn.out_proj.weight,65536,"torch.Size([256, 256])"
+transformer.layers.1.self_attn.out_proj.bias,256,torch.Size([256])
+transformer.layers.1.linear1.weight,524288,"torch.Size([2048, 256])"
+transformer.layers.1.linear1.bias,2048,torch.Size([2048])
+transformer.layers.1.linear2.weight,524288,"torch.Size([256, 2048])"
+transformer.layers.1.linear2.bias,256,torch.Size([256])
+transformer.layers.1.norm1.weight,256,torch.Size([256])
+transformer.layers.1.norm1.bias,256,torch.Size([256])
+transformer.layers.1.norm2.weight,256,torch.Size([256])
+transformer.layers.1.norm2.bias,256,torch.Size([256])
+transformer.layers.2.self_attn.in_proj_weight,196608,"torch.Size([768, 256])"
+transformer.layers.2.self_attn.in_proj_bias,768,torch.Size([768])
+transformer.layers.2.self_attn.out_proj.weight,65536,"torch.Size([256, 256])"
+transformer.layers.2.self_attn.out_proj.bias,256,torch.Size([256])
+transformer.layers.2.linear1.weight,524288,"torch.Size([2048, 256])"
+transformer.layers.2.linear1.bias,2048,torch.Size([2048])
+transformer.layers.2.linear2.weight,524288,"torch.Size([256, 2048])"
+transformer.layers.2.linear2.bias,256,torch.Size([256])
+transformer.layers.2.norm1.weight,256,torch.Size([256])
+transformer.layers.2.norm1.bias,256,torch.Size([256])
+transformer.layers.2.norm2.weight,256,torch.Size([256])
+transformer.layers.2.norm2.bias,256,torch.Size([256])
+transformer.layers.3.self_attn.in_proj_weight,196608,"torch.Size([768, 256])"
+transformer.layers.3.self_attn.in_proj_bias,768,torch.Size([768])
+transformer.layers.3.self_attn.out_proj.weight,65536,"torch.Size([256, 256])"
+transformer.layers.3.self_attn.out_proj.bias,256,torch.Size([256])
+transformer.layers.3.linear1.weight,524288,"torch.Size([2048, 256])"
+transformer.layers.3.linear1.bias,2048,torch.Size([2048])
+transformer.layers.3.linear2.weight,524288,"torch.Size([256, 2048])"
+transformer.layers.3.linear2.bias,256,torch.Size([256])
+transformer.layers.3.norm1.weight,256,torch.Size([256])
+transformer.layers.3.norm1.bias,256,torch.Size([256])
+transformer.layers.3.norm2.weight,256,torch.Size([256])
+transformer.layers.3.norm2.bias,256,torch.Size([256])
+transformer.layers.4.self_attn.in_proj_weight,196608,"torch.Size([768, 256])"
+transformer.layers.4.self_attn.in_proj_bias,768,torch.Size([768])
+transformer.layers.4.self_attn.out_proj.weight,65536,"torch.Size([256, 256])"
+transformer.layers.4.self_attn.out_proj.bias,256,torch.Size([256])
+transformer.layers.4.linear1.weight,524288,"torch.Size([2048, 256])"
+transformer.layers.4.linear1.bias,2048,torch.Size([2048])
+transformer.layers.4.linear2.weight,524288,"torch.Size([256, 2048])"
+transformer.layers.4.linear2.bias,256,torch.Size([256])
+transformer.layers.4.norm1.weight,256,torch.Size([256])
+transformer.layers.4.norm1.bias,256,torch.Size([256])
+transformer.layers.4.norm2.weight,256,torch.Size([256])
+transformer.layers.4.norm2.bias,256,torch.Size([256])
+transformer.layers.5.self_attn.in_proj_weight,196608,"torch.Size([768, 256])"
+transformer.layers.5.self_attn.in_proj_bias,768,torch.Size([768])
+transformer.layers.5.self_attn.out_proj.weight,65536,"torch.Size([256, 256])"
+transformer.layers.5.self_attn.out_proj.bias,256,torch.Size([256])
+transformer.layers.5.linear1.weight,524288,"torch.Size([2048, 256])"
+transformer.layers.5.linear1.bias,2048,torch.Size([2048])
+transformer.layers.5.linear2.weight,524288,"torch.Size([256, 2048])"
+transformer.layers.5.linear2.bias,256,torch.Size([256])
+transformer.layers.5.norm1.weight,256,torch.Size([256])
+transformer.layers.5.norm1.bias,256,torch.Size([256])
+transformer.layers.5.norm2.weight,256,torch.Size([256])
+transformer.layers.5.norm2.bias,256,torch.Size([256])
+classifier.0.weight,12800,"torch.Size([50, 256])"
+classifier.0.bias,50,torch.Size([50])
