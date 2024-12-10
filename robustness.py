@@ -72,7 +72,7 @@ class PredictNoisy(object):
         self.binary = np.load('./split/binary.npy')
 
     def load(self, filename):
-        S = torch.load(filename)
+        S = torch.load(filename,weights_only=True)
         self.model.load_state_dict(S)
 
     def to_var(self, x):
