@@ -561,7 +561,8 @@ class ViT(nn.Module):
         )
         transformer_layer = nn.TransformerEncoderLayer(
             d_model=self.embed_dim,
-            nhead=self.num_heads
+            nhead=self.num_heads,
+            batch_first=True
         )
         self.transformer = nn.TransformerEncoder(
             transformer_layer,
