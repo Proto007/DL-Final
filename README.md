@@ -1,6 +1,8 @@
 # Final Project for Deep Learning OMSCS
+Read the full paper [here](report.pdf)
 
-Read the full paper here: [report]report.pdf
+## Reference
+Special thanks to Minz Won et al., who's [work](https://github.com/minzwon/sota-music-tagging-models) served as a starting point for this project.
 
 ## Abstract
 In this paper, we address the challenges of automatic
